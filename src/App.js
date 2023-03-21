@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import AddCandy from "./components/Candies/AddCandy";
+import CandyList from "./components/Candies/CandyList";
+import Header from "./components/Layout/Header";
+import CartProvider from "./components/Store/CartProvider";
 
-function App() {
+const App = () => {
+  const [candies, setCandies] = useState([]);
+  const addCandyHandler = (candy) => {
+    setCandies((prevCandies) => [...prevCandies, candy]);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      <Header />
+      <AddCandy onAddCandy={addCandyHandler} />
+      <CandyList candies={candies} />
+    </CartProvider>
   );
-}
+};
 
 export default App;
